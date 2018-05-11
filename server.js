@@ -74,8 +74,6 @@ app.use(function (err, req, res, next) {
   }
 });
 
-
-
 // Send every request to the React app
 // Define any API routes before this runs
 app.get("*", function(req, res) {
