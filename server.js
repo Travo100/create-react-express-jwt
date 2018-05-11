@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
 const mongoose = require('mongoose');
-var morgan = require('morgan'); // used to see requests
+const morgan = require('morgan'); // used to see requests
 const app = express();
 const db = require('./models');
 const PORT = process.env.PORT || 3001;
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/appDB');
 
-// INstantiating the express-jwt middleware
+// Init the express-jwt middleware
 const isAuthenticated = exjwt({
   secret: 'all sorts of code up in here'
 });
