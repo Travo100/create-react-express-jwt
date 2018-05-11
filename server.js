@@ -1,10 +1,13 @@
-const express = require("express");
-const path = require("path");
+const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
-const PORT = process.env.PORT || 3001;
+const mongoose = require('mongoose');
+var morgan = require('morgan'); // used to see requests
 const app = express();
+const db = require('./models');
+const PORT = process.env.PORT || 3001;
 
 // See the react auth blog in which cors is required for access
 app.use((req, res, next) => {
@@ -13,47 +16,42 @@ app.use((req, res, next) => {
   next();
 });
 
+//log all requests to the console
+app.use(morgan('dev'));
+
 // Setting up bodyParser to use json and set it to req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/appDB');
 
 // INstantiating the express-jwt middleware
 const jwtMW = exjwt({
   secret: 'all sorts of code up in here'
 });
 
-// MOCKING DB just for test
-let users = [
-  {
-    id: 1,
-    username: 'test',
-    password: 'asdf123'
-  }
-];
 
 // LOGIN ROUTE
 app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  // Use your DB ORM logic here to find user and compare password
-  for (let user of users) { // I am using a simple array users which i made above
-    if (username == user.username && password == user.password /* Use your password hash checking logic here !*/) {
-      //If all credentials are correct do this
-      let token = jwt.sign({ id: user.id, username: user.username }, 'all sorts of code up in here', { expiresIn: 129600 }); // Sigining the token
-      return res.json({
-        sucess: true,
-        err: null,
-        token
-      });
-      break;
-    }
-    else {
-      return res.status(401).json({
-        sucess: false,
-        token: null,
-        err: 'Username or password is incorrect'
-      });
-    }
-  }
+  db.User.findOne({
+    email: req.body.email
+  }).then(user => {
+    user.verifyPassword(req.body.password, (err, isMatch) => {
+      if(isMatch && !err) {
+        let token = jwt.sign({ id: user._id, email: user.email }, 'all sorts of code up in here', { expiresIn: 129600 }); // Sigining the token
+        res.json({success: true, message: "Token Issued!", token: token});
+      } else {
+        res.status(401).json({success: false, message: "Authentication failed. Wrong password."});
+      }
+    });
+  }).catch(err => res.status(404).json({success: false, message: "User not found", error: err}));
+});
+
+// SIGNUP ROUTE
+app.post('/signup', (req, res) => {
+  db.User.create(req.body)
+    .then(data => res.json(data))
+    .catch(err => res.status(400).json(err));
 });
 
 // Serve up static assets (usually on heroku)
