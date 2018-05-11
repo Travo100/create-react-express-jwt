@@ -3,6 +3,7 @@ export default class AuthService {
     constructor() {
         this.fetch = this.fetch.bind(this)
         this.login = this.login.bind(this)
+        this.signup = this.signup.bind(this)
         this.getProfile = this.getProfile.bind(this)
     }
 
@@ -17,7 +18,21 @@ export default class AuthService {
         }).then(res => {
             this.setToken(res.token)
             return Promise.resolve(res);
-        })
+        });
+    }
+
+    signup(email, password) {
+        // Get a token
+        return this.fetch(`/signup`, {
+            method: 'POST',
+            body: JSON.stringify({
+                email,
+                password
+            })
+        }).then(res => {
+            this.setToken(res.token)
+            return Promise.resolve(res);
+        });
     }
 
     loggedIn() {

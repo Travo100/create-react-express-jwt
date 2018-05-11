@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Login.css';
 import AuthService from './AuthService';
 
-class Login extends Component {
+class Signup extends Component {
     constructor(){
         super();
         this.handleChange = this.handleChange.bind(this);
@@ -17,7 +17,7 @@ class Login extends Component {
         return (
             <div className="center">
                 <div className="card">
-                    <h1>Login</h1>
+                    <h1>Signup</h1>
                     <form onSubmit={this.handleFormSubmit}>
                         <input
                             className="form-item"
@@ -47,9 +47,9 @@ class Login extends Component {
     handleFormSubmit(e){
         e.preventDefault();
       
-        this.Auth.login(this.state.email,this.state.password)
+        this.Auth.signup(this.state.email,this.state.password)
             .then(res =>{
-               this.props.history.replace('/');
+               this.props.history.replace('/login');
             })
             .catch(err =>{
                 alert(err);
@@ -65,4 +65,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Signup;

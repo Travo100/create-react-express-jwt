@@ -9,12 +9,14 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 // Our Components
 import Login from './components/Login';
 import Profile from './components/Profile';
+import Signup from './components/Signup';
 
 ReactDOM.render(
     <Router>
         <div>
             <Route exact path="/" component={App} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile" component={Profile} />
         </div>
     </Router>
