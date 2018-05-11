@@ -20,7 +20,14 @@ class Signup extends Component {
                 <div className="card">
                     <h1>Signup</h1>
                     <form onSubmit={this.handleFormSubmit}>
-                        <input
+                      <input
+                        className="form-item"
+                        placeholder="Username goes here..."
+                        name="username"
+                        type="text"
+                        onChange={this.handleChange}
+                      />
+                      <input
                             className="form-item"
                             placeholder="Email goes here..."
                             name="email"
@@ -49,7 +56,7 @@ class Signup extends Component {
     handleFormSubmit(e){
         e.preventDefault();
       
-        this.Auth.signup(this.state.email,this.state.password)
+        this.Auth.signup(this.state.username,this.state.email,this.state.password)
             .then(res =>{
                this.props.history.replace('/login');
             })

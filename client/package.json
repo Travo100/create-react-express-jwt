@@ -1,9 +1,10 @@
 {
-  "name": "jwt-react-auth",
+  "name": "create-react-express-jwt",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "axios": "^0.18.0",
     "jwt-decode": "^2.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

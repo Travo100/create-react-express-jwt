@@ -21,11 +21,12 @@ export default class AuthService {
         });
     }
 
-    signup(email, password) {
+    signup(username, email, password) {
         // Get a token
         return this.fetch(`/signup`, {
             method: 'POST',
             body: JSON.stringify({
+                username,
                 email,
                 password
             })
@@ -57,12 +58,12 @@ export default class AuthService {
 
     setToken(idToken) {
         // Saves user token to localStorage
-        localStorage.setItem('id_token', idToken)
+        localStorage.setItem('id_token', idToken);
     }
 
     getToken() {
         // Retrieves the user token from localStorage
-        return localStorage.getItem('id_token')
+        return localStorage.getItem('id_token');
     }
 
     logout() {

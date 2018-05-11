@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/appDB');
 
 // INstantiating the express-jwt middleware
-const jwtMW = exjwt({
+const isAuthenticated = exjwt({
   secret: 'all sorts of code up in here'
 });
 
@@ -54,13 +54,25 @@ app.post('/signup', (req, res) => {
     .catch(err => res.status(400).json(err));
 });
 
+// Any route with isAuthenticated is protected and you need a valid token
+// to access
+app.get('/user/:id', isAuthenticated, (req, res) => {
+  db.User.findById(req.params.id).then(data => {
+    if(data) {
+      res.json(data);
+    } else {
+      res.status(404).send({success: false, message: 'No user found'});
+    }
+  }).catch(err => res.status(400).send(err));
+});
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
 
-app.get('/', jwtMW /* Using the express jwt MW here */, (req, res) => {
+app.get('/', isAuthenticated /* Using the express jwt MW here */, (req, res) => {
   res.send('You are authenticated'); //Sending some response when authenticated
 });
 
