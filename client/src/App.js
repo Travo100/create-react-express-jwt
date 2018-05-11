@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import AuthService from './components/AuthService';
 import withAuth from './components/withAuth';
-const Auth = new AuthService(process.env.APIURL);
+const Auth = new AuthService();
 
 class App extends Component {
 
