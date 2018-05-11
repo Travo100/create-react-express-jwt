@@ -1,4 +1,5 @@
 import decode from 'jwt-decode';
+import axios from 'axios';
 export default class AuthService {
     constructor() {
         this.fetch = this.fetch.bind(this)
@@ -16,7 +17,7 @@ export default class AuthService {
                 password
             })
         }).then(res => {
-            this.setToken(res.token)
+            this.setToken(res.token);
             return Promise.resolve(res);
         });
     }
@@ -31,7 +32,6 @@ export default class AuthService {
                 password
             })
         }).then(res => {
-            this.setToken(res.token)
             return Promise.resolve(res);
         });
     }
@@ -58,6 +58,7 @@ export default class AuthService {
 
     setToken(idToken) {
         // Saves user token to localStorage
+        axios.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
         localStorage.setItem('id_token', idToken);
     }
 
@@ -68,6 +69,7 @@ export default class AuthService {
 
     logout() {
         // Clear user token and profile data from localStorage
+        axios.defaults.headers.common['Authorization'] = null;
         localStorage.removeItem('id_token');
     }
 
@@ -85,6 +87,7 @@ export default class AuthService {
 
         if (this.loggedIn()) {
             headers['Authorization'] = 'Bearer ' + this.getToken()
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.getToken()}`;
         }
 
         return fetch(url, {

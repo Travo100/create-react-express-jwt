@@ -12,18 +12,18 @@ export default function withAuth(AuthComponent) {
         }
         componentWillMount() {
             if (!Auth.loggedIn()) {
-                this.props.history.replace('/signup')
+                this.props.history.replace('/signup');
             }
             else {
                 try {
-                    const profile = Auth.getProfile()
+                    const profile = Auth.getProfile();
                     this.setState({
                         user: profile
                     })
                 }
                 catch(err){
-                    Auth.logout()
-                    this.props.history.replace('/signup')
+                    Auth.logout();
+                    this.props.history.replace('/signup');
                 }
             }
         }
@@ -35,7 +35,7 @@ export default function withAuth(AuthComponent) {
                 )
             }
             else {
-                return null
+                return null;
             }
         }
     };
