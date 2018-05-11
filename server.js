@@ -62,6 +62,12 @@ app.post('/login', (req, res) => {
   }
 });
 
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
+
 app.get('/', jwtMW /* Using the express jwt MW here */, (req, res) => {
   res.send('You are authenticated'); //Sending some response when authenticated
 });
@@ -77,10 +83,6 @@ app.use(function (err, req, res, next) {
 });
 
 
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
 
 // Send every request to the React app
 // Define any API routes before this runs
