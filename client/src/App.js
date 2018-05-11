@@ -11,17 +11,17 @@ class App extends Component {
   state = {
     userId: this.props.user.id,
     profileLink: ""
-  }
+  };
 
   componentDidMount() {
-    const profileLinkURL = `/profile/${this.state.userId}`
+    const profileLinkURL = `/profile/${this.state.userId}`;
     this.setState({
       profileLink: profileLinkURL
     });
   }
 
   handleLogout(){
-    Auth.logout()
+    Auth.logout();
     this.props.history.replace('/signup');
   }
 

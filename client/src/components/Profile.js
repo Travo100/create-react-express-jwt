@@ -8,7 +8,7 @@ class Profile extends Component {
   state = {
     username: "",
     email: ""
-  }
+  };
 
   componentDidMount() {
     API.getUser(this.props.user.id).then(res => {
@@ -27,7 +27,7 @@ class Profile extends Component {
         <p>Email: {this.state.email}</p>
         <Link to="/">Go home</Link>
       </div>
-    );
+    )
   }
 }
 

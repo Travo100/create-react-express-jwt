@@ -2,10 +2,10 @@ import decode from 'jwt-decode';
 import axios from 'axios';
 export default class AuthService {
     constructor() {
-        this.fetch = this.fetch.bind(this)
-        this.login = this.login.bind(this)
-        this.signup = this.signup.bind(this)
-        this.getProfile = this.getProfile.bind(this)
+        this.fetch = this.fetch.bind(this);
+        this.login = this.login.bind(this);
+        this.signup = this.signup.bind(this);
+        this.getProfile = this.getProfile.bind(this);
     }
 
     login(email, password) {
@@ -38,7 +38,7 @@ export default class AuthService {
 
     loggedIn() {
         // Checks if there is a saved token and it's still valid
-        const token = this.getToken()
+        const token = this.getToken();
         return !!token && !this.isTokenExpired(token) // handwaiving here
     }
 
