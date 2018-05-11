@@ -28,11 +28,6 @@ let users = [
     id: 1,
     username: 'test',
     password: 'asdf123'
-  },
-  {
-    id: 2,
-    username: 'test2',
-    password: 'asdf12345'
   }
 ];
 
@@ -52,12 +47,11 @@ app.post('/login', (req, res) => {
       break;
     }
     else {
-      res.status(401).json({
+      return res.status(401).json({
         sucess: false,
         token: null,
         err: 'Username or password is incorrect'
       });
-      break;
     }
   }
 });
