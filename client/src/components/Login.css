@@ -51,3 +51,6 @@
    opacity: 0.6;
 }
 
+.card p {
+    text-align: center;
+}
