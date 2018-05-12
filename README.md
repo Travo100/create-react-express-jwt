@@ -2,22 +2,36 @@
 
 ## About This Boilerplate
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+This setup allows for a Node/Express/React/JWT app which can be easily deployed to Heroku.
 
 The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
 
+An article on how the server is setup with JWT can be found [here](https://hptechblogs.com/using-json-web-token-for-authentication/). This has been modified to use a mongo database instead of hardcoded array of users.
+
+The front end has been setup to use JWT as a way of authenticating users and routes. To understand it's structure better please refer to the following article [here](https://hptechblogs.com/using-json-web-token-react/)
+
+Please feel free to modify this code in anyway you see fit for your project. It is a boilerplate setup that tries to make sure you can get something up and running without having to worry about setting up user authentication from scratch.
+I highly suggest you read the articles before jumping in so you can have an better understanding of how everything works in the code. 
+
+Server-side article and using JWT: https://hptechblogs.com/using-json-web-token-for-authentication/
+
+Front End article on using the JWT on a react application: https://hptechblogs.com/using-json-web-token-react/
+
 ## Starting the app locally
 
-Start by installing front and backend dependencies. While in this directory, run the following commands:
+First off make sure you have a local version of MongoDB running on your machine. This project will make a local database for you called `appDB`.
 
 ```
-yarn install
-cd client
-yarn install
-cd ..
-``
+mongod
+```
 
-After both installations complete, run the following command in your terminal:
+Start by installing front and backend dependencies. While in the root directory, run the following command:
+
+```
+yarn installDeps
+```
+
+After all installations complete, run the following command in your terminal:
 
 ```
 yarn start
