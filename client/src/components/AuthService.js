@@ -1,40 +1,21 @@
 import decode from 'jwt-decode';
 import axios from 'axios';
 export default class AuthService {
-    constructor() {
-        this.fetch = this.fetch.bind(this);
-        this.login = this.login.bind(this);
-        this.signup = this.signup.bind(this);
-        this.getProfile = this.getProfile.bind(this);
-    }
 
-    login(email, password) {
+    login = (email, password) => {
         // Get a token
-        return this.fetch(`/login`, {
-            method: 'POST',
-            body: JSON.stringify({
-                email,
-                password
-            })
-        }).then(res => {
-            this.setToken(res.token);
-            return Promise.resolve(res);
+        return axios.post('api/login', {email: email, password: password})
+        .then(res => {
+            // set the token once the user logs in
+            this.setToken(res.data.token);
+            // return the rest of the response
+            return res;
         });
-    }
+    };
 
-    signup(username, email, password) {
-        // Get a token
-        return this.fetch(`/signup`, {
-            method: 'POST',
-            body: JSON.stringify({
-                username,
-                email,
-                password
-            })
-        }).then(res => {
-            return Promise.resolve(res);
-        });
-    }
+    getProfile = () => {
+        return decode(this.getToken());
+    };
 
     loggedIn() {
         // Checks if there is a saved token and it's still valid
@@ -73,39 +54,6 @@ export default class AuthService {
         localStorage.removeItem('id_token');
     }
 
-    getProfile() {
-        return decode(this.getToken());
-    }
 
 
-    fetch(url, options) {
-        // performs api calls sending the required authentication headers
-        const headers = {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-
-        if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer ' + this.getToken()
-            axios.defaults.headers.common['Authorization'] = `Bearer ${this.getToken()}`;
-        }
-
-        return fetch(url, {
-            headers,
-            ...options
-        })
-            .then(this._checkStatus)
-            .then(response => response.json())
-    }
-
-    _checkStatus(response) {
-        // raises an error in case response status is not a success
-        if (response.status >= 200 && response.status < 300) {
-            return response
-        } else {
-            var error = new Error(response.statusText)
-            error.response = response
-            throw error
-        }
-    }
 }

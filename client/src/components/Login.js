@@ -5,19 +5,36 @@ import {Link} from 'react-router-dom';
 class Login extends Component {
   constructor() {
     super();
-    this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.Auth = new AuthService();
   }
 
   componentWillMount() {
-    if (this.Auth.loggedIn())
+    if (this.Auth.loggedIn()) {
       this.props.history.replace('/');
+    }
   }
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+
+    this.Auth.login(this.state.email, this.state.password)
+      .then(res => {
+        // once user is logged in
+        // take them to their profile page
+        this.props.history.replace(`/profile/${res.data.user._id}`);
+      })
+      .catch(err => alert(err));
+  };
+
+  handleChange = event => {
+    const {name, value} = event.target;
+    this.setState({
+        [name]: value
+    });
+  };
 
   render() {
     return (
-
       <div className="container">
         <h1>Login</h1>
         <form onSubmit={this.handleFormSubmit}>
@@ -45,27 +62,6 @@ class Login extends Component {
       </div>
 
     );
-  }
-
-  handleFormSubmit(e) {
-    e.preventDefault();
-
-    this.Auth.login(this.state.email, this.state.password)
-      .then(res => {
-        this.props.history.replace(`/profile/${res.user._id}`);
-      })
-      .catch(err => {
-        alert(err);
-      })
-
-  }
-
-  handleChange(e) {
-    this.setState(
-      {
-        [e.target.name]: e.target.value
-      }
-    )
   }
 }
 

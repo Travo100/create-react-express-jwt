@@ -1,19 +1,38 @@
 import React, {Component} from 'react';
-import AuthService from './AuthService';
 import {Link} from 'react-router-dom';
+import AuthService from './AuthService';
+import API from '../utils/API';
 
 class Signup extends Component {
   constructor() {
     super();
-    this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.Auth = new AuthService();
   }
 
   componentWillMount() {
-    if (this.Auth.loggedIn())
+    if (this.Auth.loggedIn()) {
       this.props.history.replace('/');
+    }
   }
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    API.signUpUser(this.state.username, this.state.email, this.state.password)
+      .then(res => {
+        console.log(res.data);
+        // once the user has signed up
+        // send them to the login page
+        this.props.history.replace('/login');
+      })
+      .catch(err => alert(err));
+  };
+
+  handleChange = event => {
+    const {name, value} = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
   render() {
     return (
@@ -53,27 +72,6 @@ class Signup extends Component {
         <p><Link to="/login">Go to Login</Link></p>
       </div>
     );
-  }
-
-  handleFormSubmit(e) {
-    e.preventDefault();
-
-    this.Auth.signup(this.state.username, this.state.email, this.state.password)
-      .then(res => {
-        console.log(res.data);
-        this.props.history.replace('/login');
-      })
-      .catch(err => {
-        alert(err);
-      });
-  }
-
-  handleChange(e) {
-    this.setState(
-      {
-        [e.target.name]: e.target.value
-      }
-    )
   }
 }
 

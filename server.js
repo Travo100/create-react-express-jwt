@@ -32,7 +32,7 @@ const isAuthenticated = exjwt({
 
 
 // LOGIN ROUTE
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   db.User.findOne({
     email: req.body.email
   }).then(user => {
@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
 });
 
 // SIGNUP ROUTE
-app.post('/signup', (req, res) => {
+app.post('/api/signup', (req, res) => {
   db.User.create(req.body)
     .then(data => res.json(data))
     .catch(err => res.status(400).json(err));
@@ -56,7 +56,7 @@ app.post('/signup', (req, res) => {
 
 // Any route with isAuthenticated is protected and you need a valid token
 // to access
-app.get('/user/:id', isAuthenticated, (req, res) => {
+app.get('/api/user/:id', isAuthenticated, (req, res) => {
   db.User.findById(req.params.id).then(data => {
     if(data) {
       res.json(data);
