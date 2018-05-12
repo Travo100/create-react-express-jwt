@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Link } from 'react-router-dom';
 import AuthService from './components/AuthService';
 import withAuth from './components/withAuth';
 const Auth = new AuthService();
@@ -20,10 +19,14 @@ class App extends Component {
     });
   }
 
-  handleLogout(){
+  handleLogout = () => {
     Auth.logout();
     this.props.history.replace('/signup');
-  }
+  };
+
+  goToEditProfile = () => {
+    this.props.history.replace(this.state.profileLink);
+  };
 
   render() {
     return (
@@ -33,8 +36,8 @@ class App extends Component {
           <h2>Welcome {this.props.user.email}</h2>
         </div>
         <p className="App-intro">
-          <Link type="button" className="form-submit" to={this.state.profileLink}>Edit Profile</Link>
-          <button type="button" className="form-submit" onClick={this.handleLogout.bind(this)}>Logout</button>
+          <button type="button" className="btn btn-primary" onClick={this.goToEditProfile}>Go to Profile</button>
+          <button type="button" className="btn btn-danger" onClick={this.handleLogout}>Logout</button>
         </p>
       </div>
     );
