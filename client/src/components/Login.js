@@ -23,7 +23,10 @@ class Login extends Component {
         // take them to their profile page
         this.props.history.replace(`/profile/${res.data.user._id}`);
       })
-      .catch(err => alert(err));
+      .catch(err => {
+        console.log(err.response);
+        alert(err.response.data.message)
+      });
   };
 
   handleChange = event => {
