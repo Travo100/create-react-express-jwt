@@ -11,6 +11,7 @@ import axios from "axios";
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Signup from './components/Signup';
+import Navbar from './components/Navbar';
 
 if(localStorage.getItem("id_token")) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('id_token')}`;
@@ -18,6 +19,7 @@ if(localStorage.getItem("id_token")) {
 ReactDOM.render(
     <Router>
         <div>
+            <Navbar />
             <Route exact path="/" component={App} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
