@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import AuthService from '../AuthService';
-import withAuth from '../withAuth';
 
 class Navbar extends Component {
     constructor() {
@@ -14,10 +13,10 @@ class Navbar extends Component {
             return (
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                        <Link className="nav-link" to={`/profile/${this.props.user.id}`}>Profile</Link>
+                        <Link className="nav-link" to="/profile">Profile</Link>
                     </li>
                     <li className="nav-item">
-                        <button className="nav-link">Logout</button>
+                        <button className="nav-link" onClick={() => this.Auth.logout()}>Logout</button>
                     </li>
                 </ul>
             );
@@ -54,4 +53,4 @@ class Navbar extends Component {
     }
 }
 
-export default withAuth(Navbar);
+export default Navbar;
