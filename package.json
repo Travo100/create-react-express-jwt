@@ -16,16 +16,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "concurrently": "^3.6.1",
+    "nodemon": "^1.18.3"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "express": "^4.15.4",
     "express-jwt": "^5.3.1",
-    "jsonwebtoken": "^8.2.1",
-    "mongoose": "^5.1.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.9",
     "morgan": "^1.9.0"
   }
 }
