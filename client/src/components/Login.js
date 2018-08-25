@@ -21,10 +21,9 @@ class Login extends Component {
       .then(res => {
         // once user is logged in
         // take them to their profile page
-        this.props.history.replace(`/profile/${res.data.user._id}`);
+        this.props.history.replace(`/profile`);
       })
       .catch(err => {
-        console.log(err.response);
         alert(err.response.data.message)
       });
   };

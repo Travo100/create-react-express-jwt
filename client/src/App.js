@@ -7,17 +7,6 @@ const Auth = new AuthService();
 
 class App extends Component {
 
-  state = {
-    userId: this.props.user.id,
-    profileLink: ""
-  };
-
-  componentDidMount() {
-    const profileLinkURL = `/profile/${this.state.userId}`;
-    this.setState({
-      profileLink: profileLinkURL
-    });
-  }
 
   handleLogout = () => {
     Auth.logout();
@@ -25,7 +14,7 @@ class App extends Component {
   };
 
   goToEditProfile = () => {
-    this.props.history.replace(this.state.profileLink);
+    this.props.history.replace('/profile');
   };
 
   render() {
