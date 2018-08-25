@@ -19,7 +19,6 @@ class Signup extends Component {
     event.preventDefault();
     API.signUpUser(this.state.username, this.state.email, this.state.password)
       .then(res => {
-        console.log(res.data);
         // once the user has signed up
         // send them to the login page
         this.props.history.replace('/login');

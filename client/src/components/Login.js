@@ -24,7 +24,6 @@ class Login extends Component {
         this.props.history.replace(`/profile`);
       })
       .catch(err => {
-        console.log(err.response);
         alert(err.response.data.message)
       });
   };
