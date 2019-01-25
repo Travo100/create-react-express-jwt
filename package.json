@@ -10,8 +10,8 @@
     "build": "cd client && npm run build",
     "deploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku master",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "installDeps": "yarn && cd client && yarn",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "install": "cd client && yarn install",
+    "heroku-postbuild": "npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -21,11 +21,10 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
-    "body-parser": "^1.18.3",
-    "express": "^4.15.4",
+    "express": "^4.16.4",
     "express-jwt": "^5.3.1",
-    "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.2.9",
-    "morgan": "^1.9.0"
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.6",
+    "morgan": "^1.9.1"
   }
 }

@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const exjwt = require('express-jwt');
 const mongoose = require('mongoose');
@@ -20,11 +19,12 @@ app.use((req, res, next) => {
 //log all requests to the console
 app.use(morgan('dev'));
 
-// Setting up bodyParser to use json and set it to req.body
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Setting up express to use json and set it to req.body
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/appDB');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/appDB', {useNewUrlParser: true});
+mongoose.set('useCreateIndex', true);
 
 // Init the express-jwt middleware
 const isAuthenticated = exjwt({
