@@ -28,7 +28,7 @@ mongod
 Start by installing front and backend dependencies. While in the root directory, run the following command:
 
 ```
-yarn installDeps
+yarn install
 ```
 
 After all installations complete, run the following command in your terminal:
@@ -51,48 +51,9 @@ git add .
 git commit -m "Initial commit"
 ```
 
-### Heroku
-
-Make sure that you have a Heroku app created for this project. If so, proceed to the next section, otherwise run the following command in your terminal:
-
-```
-heroku create
-```
-
-Optionally add an argument for your application's name after `create`, e.g.
-
-```
-heroku myAwesomeApp
-```
-
 ### Deploying
 
-#### Option 1
-
-Use the deploy script inside of the outer `package.json`
-
-After confirming that you have an up to date git repository and a Heroku app created, run the following command to deploy:
-
-```
-yarn deploy
-```
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
-
-#### Option 2
-
-Manually deploy 
-
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
-
-1. Build the React app for production by running the following command:
-
-```
-yarn build
-```
-
-2. Add and commit all changes to git
-
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
+1. Go onto your heroku account and link your repository through the UI
+2. Go to resources and find mLab as a Add-on
+3. Provision a Mongo Database
+4. Go back and click "Deploy"
