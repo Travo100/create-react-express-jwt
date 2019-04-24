@@ -1,5 +1,5 @@
 {
-  "name": "mern",
+  "name": "create-react-express-jwt-server",
   "version": "1.0.0",
   "description": "Mern Demo",
   "main": "server.js",

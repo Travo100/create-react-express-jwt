@@ -1,5 +1,5 @@
 {
-  "name": "create-react-express-jwt",
+  "name": "create-react-express-jwt-client",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",

@@ -8,7 +8,7 @@ const db = require('./models');
 const PORT = process.env.PORT || 3001;
 
 const isAuthenticated = require("./config/isAuthenticated");
-const auth = require("./config/loginUser");
+const auth = require("./config/auth");
 
 // Setting CORS so that any website can
 // Access our API
@@ -33,7 +33,10 @@ mongoose
 
 // LOGIN ROUTE
 app.post('/api/login', (req, res) => {
-  auth.logUserIn(req, res)
+  auth
+    .logUserIn(req.body.email, req.body.password)
+    .then(dbUser => res.json(dbUser))
+    .catch(err => res.status(400).json(err));
 });
 
 // SIGNUP ROUTE
@@ -59,7 +62,6 @@ app.get('/api/user/:id', isAuthenticated, (req, res) => {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-
 
 app.get('/', isAuthenticated /* Using the express jwt MW here */, (req, res) => {
   res.send('You are authenticated'); //Sending some response when authenticated
