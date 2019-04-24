@@ -1,12 +1,14 @@
+require('dotenv').config()
 const express = require('express');
+const app = express();
 const path = require('path');
-const jwt = require('jsonwebtoken');
-const exjwt = require('express-jwt');
 const mongoose = require('mongoose');
 const morgan = require('morgan'); // used to see requests
-const app = express();
 const db = require('./models');
 const PORT = process.env.PORT || 3001;
+
+const isAuthenticated = require("./config/isAuthenticated");
+const auth = require("./config/loginUser");
 
 // Setting CORS so that any website can
 // Access our API
@@ -23,29 +25,15 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/appDB', {useNewUrlParser: true});
-mongoose.set('useCreateIndex', true);
-
-// Init the express-jwt middleware
-const isAuthenticated = exjwt({
-  secret: 'all sorts of code up in here'
-});
+mongoose
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/appDB', {useNewUrlParser: true, useCreateIndex: true})
+  .then(() => console.log("MongoDB Connected!"))
+  .catch(err => console.error(err));
 
 
 // LOGIN ROUTE
 app.post('/api/login', (req, res) => {
-  db.User.findOne({
-    email: req.body.email
-  }).then(user => {
-    user.verifyPassword(req.body.password, (err, isMatch) => {
-      if(isMatch && !err) {
-        let token = jwt.sign({ id: user._id, email: user.email }, 'all sorts of code up in here', { expiresIn: 129600 }); // Sigining the token
-        res.json({success: true, message: "Token Issued!", token: token, user: user});
-      } else {
-        res.status(401).json({success: false, message: "Authentication failed. Wrong password."});
-      }
-    });
-  }).catch(err => res.status(404).json({success: false, message: "User not found", error: err}));
+  auth.logUserIn(req, res)
 });
 
 // SIGNUP ROUTE
