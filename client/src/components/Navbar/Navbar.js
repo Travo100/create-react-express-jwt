@@ -3,13 +3,35 @@ import { Link } from 'react-router-dom';
 import AuthService from '../AuthService';
 
 class Navbar extends Component {
+    state = {
+        isLoggedIn: false
+    };
+
+    historyUnListen = null;
+
     constructor() {
         super();
         this.Auth = new AuthService();
     }
 
+    componentDidMount() {
+        this.setState({ isLoggedIn: this.Auth.loggedIn() })
+        this.historyListener = this.props.history.listen(this.onHistoryChange)
+    }
+
+    onHistoryChange = () => {
+        if (this.Auth.loggedIn() !== this.state.isLoggedIn) {
+            this.setState({ isLoggedIn: this.Auth.loggedIn() });
+        }
+    }
+
+    componentWillUnmount() {
+        // unsubscribe to history changes
+        this.historyUnListen && this.historyUnListen()
+    }
+
     showNavigation = () => {
-        if (this.Auth.loggedIn()) {
+        if (this.state.isLoggedIn) {
             return (
                 <ul className="navbar-nav">
                     <li className="nav-item">
