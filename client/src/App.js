@@ -1,37 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import AuthService from './components/AuthService';
-import withAuth from './components/withAuth';
-const Auth = new AuthService();
+import { useAuth } from './utils/auth';
 
-class App extends Component {
+function App() {
+  const { auth, user } = useAuth();
+  const history = useHistory();
 
+  const goToEditProfile = () => history.push('/profile');
 
-  handleLogout = () => {
-    Auth.logout();
-    this.props.history.replace('/signup');
-  };
-
-  goToEditProfile = () => {
-    this.props.history.replace('/profile');
-  };
-
-  render() {
-    console.log(process.env.REACT_APP_SECRET_CODE);
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome {this.props.user.email}</h2>
-        </div>
-        <p className="App-intro">
-          <button type="button" className="btn btn-primary" onClick={this.goToEditProfile}>Go to Profile</button>
-          <button type="button" className="btn btn-danger" onClick={this.handleLogout}>Logout</button>
-        </p>
+  return (
+    <div className="App">
+      <div className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h2>Welcome {user().email}</h2>
       </div>
-    );
-  }
+      <p className="App-intro">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={goToEditProfile}
+        >
+          Go to Profile
+        </button>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => auth.logout()}
+        >
+          Logout
+        </button>
+      </p>
+    </div>
+  );
 }
 
-export default withAuth(App);
+export default App;
