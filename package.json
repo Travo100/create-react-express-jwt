@@ -1,8 +1,11 @@
 {
   "name": "create-react-express-jwt-server",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Mern Demo",
   "main": "server.js",
+  "engine": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
@@ -15,17 +18,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^3.6.1",
-    "nodemon": "^1.18.3"
+    "concurrently": "^5.0.2",
+    "nodemon": "^2.0.2"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "dotenv": "^7.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.5.3",
+    "mongoose": "^5.8.7",
     "morgan": "^1.9.1"
   }
 }
