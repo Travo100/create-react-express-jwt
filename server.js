@@ -25,8 +25,15 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const dbOptions = {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+};
+
 mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/appDB', {useNewUrlParser: true, useCreateIndex: true})
+  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/appDB', dbOptions)
   .then(() => console.log("MongoDB Connected!"))
   .catch(err => console.error(err));
 
