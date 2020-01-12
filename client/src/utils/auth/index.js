@@ -4,7 +4,8 @@ import AuthService from './AuthService';
 const AuthContext = createContext();
 const authService = new AuthService();
 
-// Provides user, isLoggedIn, login, and logout
+// Provides user (object || null), isLoggedIn (bool), login(): promise,
+// and logout(): void
 export const AuthProvider = ({ value, ...rest }) => {
   const isLoggedIn = authService.loggedIn();
   const [user, setUser] = useState(
