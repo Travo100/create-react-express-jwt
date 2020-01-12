@@ -4,24 +4,28 @@ import AuthService from './AuthService';
 const AuthContext = createContext();
 const authService = new AuthService();
 
+// Provides user, isLoggedIn, login, and logout
 export const AuthProvider = ({ value, ...rest }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(authService.loggedIn());
+  const isLoggedIn = authService.loggedIn();
+  const [user, setUser] = useState(
+    isLoggedIn ? authService.getProfile() : null
+  );
+
   const login = (email, password) => {
     return authService
       .login(email, password)
-      .then(() => setIsLoggedIn(authService.loggedIn()));
+      .then(() => setUser(authService.getProfile()));
   };
-  const auth = {
-    login,
-    // loggedIn: () => authService.loggedIn(),
-    logout: () => authService.logout()
-  };
+
+  const logout = () => authService.logout();
+
   return (
     <AuthContext.Provider
       value={{
-        user: () => authService.getProfile(),
+        user,
         isLoggedIn,
-        auth
+        login,
+        logout
       }}
       {...rest}
     />

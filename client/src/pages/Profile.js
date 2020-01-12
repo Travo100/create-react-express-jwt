@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import API from './../utils/API'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../utils/auth'
+import React, { useState, useEffect } from 'react';
+import API from './../utils/API';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../utils/auth';
 
 function Profile() {
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const {user} = useAuth();
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const { user } = useAuth();
 
   useEffect(() => {
-    API.getUser(user().id).then(res => {
-      setUsername(res.data.username)
-      setEmail(res.data.email)
-    })
-  }, [user])
+    API.getUser(user.id).then(res => {
+      setUsername(res.data.username);
+      setEmail(res.data.email);
+    });
+  }, [user]);
 
   return (
     <div className="container Profile">
@@ -22,7 +22,7 @@ function Profile() {
       <p>Email: {email}</p>
       <Link to="/">Go home</Link>
     </div>
-  )
+  );
 }
 
-export default Profile
+export default Profile;

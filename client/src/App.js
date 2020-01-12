@@ -5,7 +5,7 @@ import './App.css';
 import { useAuth } from './utils/auth';
 
 function App() {
-  const { auth, user } = useAuth();
+  const { user, logout } = useAuth();
   const history = useHistory();
 
   const goToEditProfile = () => history.push('/profile');
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <div className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h2>Welcome {user().email}</h2>
+        <h2>Welcome {user.email}</h2>
       </div>
       <p className="App-intro">
         <button
@@ -27,7 +27,7 @@ function App() {
         <button
           type="button"
           className="btn btn-danger"
-          onClick={() => auth.logout()}
+          onClick={() => logout()}
         >
           Logout
         </button>

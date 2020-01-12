@@ -5,7 +5,7 @@ import { useAuth } from '../utils/auth';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { auth, isLoggedIn } = useAuth();
+  const { isLoggedIn, login } = useAuth();
   const history = useHistory();
 
   if (isLoggedIn) {
@@ -15,12 +15,11 @@ function Login() {
   const handleFormSubmit = event => {
     event.preventDefault();
 
-    auth
-      .login(email, password)
+    login(email, password)
       // navigate to the profile page
       .then(() => history.push('/profile'))
       .catch(err => {
-        console.log(err.response.data.message);
+        alert(err.response.data.message);
       });
   };
 

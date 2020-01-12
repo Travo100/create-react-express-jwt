@@ -24,11 +24,11 @@ const createLink = ({ text, to, ...rest }) => {
 };
 
 function NavLinks() {
-  const { auth, isLoggedIn } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
   let links = [];
   if (isLoggedIn) {
     links.push({ text: 'Profile', to: '/profile' });
-    links.push({ text: 'Logout', onClick: () => auth.logout() });
+    links.push({ text: 'Logout', onClick: () => logout() });
   } else {
     links.push({ text: 'Signup', to: '/signup' });
     links.push({ text: 'Login', to: '/login' });
