@@ -15,7 +15,7 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
+  "author": "Travis Thompson, John Desrosiers",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.0.2",
