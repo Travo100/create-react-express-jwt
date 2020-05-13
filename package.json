@@ -18,17 +18,17 @@
   "author": "Travis Thompson, John Desrosiers",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.0.2",
-    "nodemon": "^2.0.2"
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
-    "express-jwt": "^5.3.1",
+    "express-jwt": "^5.3.3",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.7",
-    "morgan": "^1.9.1"
+    "mongoose": "^5.9.13",
+    "morgan": "^1.10.0"
   }
 }
