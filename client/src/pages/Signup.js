@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import API from './../utils/API';
-import {useAuth} from '../utils/auth'
+import React, { useState } from "react";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import API from "./../utils/API";
+import {useAuth} from "../utils/auth";
 
 
 function Signup() {
   const [formState, setFormState] = useState({
-    username: '',
-    email: '',
-    password: ''
+    username: "",
+    email: "",
+    password: ""
   });
 
-  const { isLoggedIn } = useAuth()
+  const { isLoggedIn } = useAuth();
 
-  const history = useHistory()
+  const history = useHistory();
 
   if (isLoggedIn) {
     return <Redirect to="/" />;
@@ -25,7 +25,7 @@ function Signup() {
       .then(res => {
         // once the user has signed up
         // send them to the login page
-        history.replace('/login');
+        history.replace("/login");
       })
       .catch(err => alert(err));
   };

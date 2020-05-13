@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../utils/auth';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../utils/auth";
 
 const createLink = ({ text, to, ...rest }) => {
-  const className = 'nav-link';
+  const className = "nav-link";
   if (to) {
     return (
       <Link className={className} to={to} {...rest}>
@@ -15,7 +15,7 @@ const createLink = ({ text, to, ...rest }) => {
     <span
       role="button"
       className={className}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: "pointer" }}
       {...rest}
     >
       {text}
@@ -25,13 +25,13 @@ const createLink = ({ text, to, ...rest }) => {
 
 function NavLinks() {
   const { isLoggedIn, logout } = useAuth();
-  let links = [];
+  const links = [];
   if (isLoggedIn) {
-    links.push({ text: 'Profile', to: '/profile' });
-    links.push({ text: 'Logout', onClick: () => logout() });
+    links.push({ text: "Profile", to: "/profile" });
+    links.push({ text: "Logout", onClick: () => logout() });
   } else {
-    links.push({ text: 'Signup', to: '/signup' });
-    links.push({ text: 'Login', to: '/login' });
+    links.push({ text: "Signup", to: "/signup" });
+    links.push({ text: "Login", to: "/login" });
   }
   return (
     <ul className="navbar-nav">

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
-import { useAuth } from '../utils/auth';
+import React, { useState } from "react";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { useAuth } from "../utils/auth";
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { isLoggedIn, login } = useAuth();
   const history = useHistory();
 
@@ -17,7 +17,7 @@ function Login() {
 
     login(email, password)
       // navigate to the profile page
-      .then(() => history.push('/profile'))
+      .then(() => history.push("/profile"))
       .catch(err => {
         alert(err.response.data.message);
       });
