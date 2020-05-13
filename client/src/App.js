@@ -1,38 +1,50 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import logo from './logo.svg';
-import './App.css';
-import { useAuth } from './utils/auth';
+import React from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+
+// Our Components
+import { AuthProvider, useAuth } from "./utils/auth";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Signup from "./pages/Signup";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+
+function ProtectedRoute({ children, ...rest }) {
+  const { isLoggedIn } = useAuth();
+  if (isLoggedIn) {
+    return children;
+  }
+  return <Redirect to="/signup" />;
+}
 
 function App() {
-  const { user, logout } = useAuth();
-  const history = useHistory();
-
-  const goToEditProfile = () => history.push('/profile');
-
   return (
-    <div className="App">
-      <div className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2>Welcome {user.email}</h2>
-      </div>
-      <p className="App-intro">
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={goToEditProfile}
-        >
-          Go to Profile
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={() => logout()}
-        >
-          Logout
-        </button>
-      </p>
-    </div>
+    <AuthProvider>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch>
+            <ProtectedRoute exact path="/">
+              <Home />
+            </ProtectedRoute>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
+            <ProtectedRoute exact path="/profile">
+              <Profile />
+            </ProtectedRoute>
+          </Switch>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
